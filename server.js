@@ -4,9 +4,9 @@ const booking = [
   {
     id: 1,
     title: "Mr",
-    firstName: "John",
-    surname: "Doe",
-    email: "johndoe@doe.com",
+    firstName: "Awet",
+    surname: "Fessha",
+    email: "awetFessha@fessha.com",
     roomId: 2,
     checkInDate: "2017-11-21",
     checkOutDate: "2017-11-23"
@@ -14,9 +14,9 @@ const booking = [
   {
     id: 2,
     title: "Doctor",
-    firstName: "Sadia",
-    surname: "Begum",
-    email: "begum_sadia@sadia.org",
+    firstName: "Cameron",
+    surname: "Donald",
+    email: "donald_cameron@cameron.org",
     roomId: 1,
     checkInDate: "2018-02-15",
     checkOutDate: "2018-02-28"
@@ -24,7 +24,7 @@ const booking = [
   {
     id: 3,
     title: "Prince",
-    firstName: "Henry",
+    firstName: "Harry",
     surname: "Wales",
     email: "harry@wales.com",
     roomId: 5,
@@ -55,6 +55,10 @@ const booking = [
 app.get("/", function(req, res) {
   res.send(booking);
 });
+app.get("/bookings/:roomId", function(req, res) {
+  res.send(booking.find(result => result.roomId == req.params.roomId));
+});
+
 app.listen(process.env.PORT || 3001, function() {
-  console.log("server listening on port 3000!");
+  console.log("server listening on port 3001!");
 });
