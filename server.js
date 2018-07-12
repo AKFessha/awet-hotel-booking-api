@@ -60,13 +60,26 @@ app.use(function(req, res, next) {
   );
   next();
 });
-app.get("/", function(req, res) {
+app.get("/bookings/", function(req, res) {
   res.send(booking);
 });
 app.get("/bookings/:roomId", function(req, res) {
   res.send(booking.find(result => result.roomId == req.params.roomId));
+  res.send(200);
 });
-
+app.Delete("/bookings/:roomId", function(req, res) {
+  booking.splice(
+    booking.findIndex(result => result.roomId === req.params.roomId),
+    1
+  );
+  res.send(200);
+});
+app.put("/bookings/:roomId", function(req, res) {
+  let toBeUpdated = booking.find(result => result.roomId === req.params.roomId);
+  toBeUpdated.surname = "Kifle";
+  toBeUpdated.title = "Dr";
+  res.send(200);
+});
 app.listen(process.env.PORT || 3001, function() {
   console.log("server listening on port 3001!");
 });
