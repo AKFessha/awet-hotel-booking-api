@@ -1,5 +1,7 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 const app = express();
+app.use(bodyParser.json());
 const booking = [
   {
     id: 1,
@@ -52,6 +54,7 @@ const booking = [
     checkOutDate: "2017-10-02"
   }
 ];
+//enable CORS
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
@@ -60,13 +63,20 @@ app.use(function(req, res, next) {
   );
   next();
 });
-app.get("/bookings/", function(req, res) {
+
+//Getting
+app.get("/bookings", function(req, res) {
   res.send(booking);
 });
 app.get("/bookings/:roomId", function(req, res) {
   res.send(booking.find(result => result.roomId == req.params.roomId));
   res.send(200);
 });
+app.use("/postBooking", function(req, res) {
+  booking.push(req.body);
+  res.send("Success");
+});
+//Delete
 app.Delete("/bookings/:roomId", function(req, res) {
   booking.splice(
     booking.findIndex(result => result.roomId === req.params.roomId),
@@ -74,6 +84,8 @@ app.Delete("/bookings/:roomId", function(req, res) {
   );
   res.send(200);
 });
+
+//Update
 app.put("/bookings/:roomId", function(req, res) {
   let toBeUpdated = booking.find(result => result.roomId === req.params.roomId);
   toBeUpdated.surname = "Kifle";
