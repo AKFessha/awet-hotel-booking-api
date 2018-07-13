@@ -54,7 +54,7 @@ const booking = [
     checkOutDate: "2017-10-02"
   }
 ];
-//enable CORS
+//Enable CORS
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
@@ -68,16 +68,20 @@ app.use(function(req, res, next) {
 app.get("/bookings", function(req, res) {
   res.send(booking);
 });
+
+//Filtering by roomId
 app.get("/bookings/:roomId", function(req, res) {
   res.send(booking.find(result => result.roomId == req.params.roomId));
   res.send(200);
 });
-app.use("/postBooking", function(req, res) {
+
+//Post
+app.post("/postBooking", function(req, res) {
   booking.push(req.body);
   res.send("Success");
 });
 //Delete
-app.Delete("/bookings/:roomId", function(req, res) {
+app.delete("/bookings/:roomId", function(req, res) {
   booking.splice(
     booking.findIndex(result => result.roomId === req.params.roomId),
     1
@@ -92,6 +96,8 @@ app.put("/bookings/:roomId", function(req, res) {
   toBeUpdated.title = "Dr";
   res.send(200);
 });
+
+//
 app.listen(process.env.PORT || 3001, function() {
   console.log("server listening on port 3001!");
 });
