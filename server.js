@@ -74,7 +74,15 @@ app.get("/bookings/:roomId", function(req, res) {
   res.send(booking.find(result => result.roomId == req.params.roomId));
   res.send(200);
 });
-
+//Filter by title
+app.get("/bookings", function(req, res) {
+  res.send(
+    booking.filter(
+      result => result.title === req.query.title || !req.query.title
+    )
+  );
+  res.send(201);
+});
 //Post
 app.post("/postBooking", function(req, res) {
   booking.push(req.body);
@@ -93,7 +101,7 @@ app.delete("/bookings/:roomId", function(req, res) {
 app.put("/bookings/:roomId", function(req, res) {
   let toBeUpdated = booking.find(result => result.roomId === req.params.roomId);
   toBeUpdated.surname = "Kifle";
-  toBeUpdated.title = "Dr";
+  toBeUpdated.title = "Doctor";
   res.send(200);
 });
 
